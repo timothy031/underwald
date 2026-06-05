@@ -1,0 +1,138 @@
+<link rel="stylesheet" href="style.css">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNDERWALD</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<nav id="navbar"></nav>
+
+<!-- HERO -->
+<section class="hero">
+<h1 class="hero-title">UNDERWALD</h1>
+<p class="hero-sub">Raw Aesthetics. Unapologetic Design. Limited Drops.</p>
+<div class="hero-btns">
+<a href="shop.html" class="btn btn-primary btn-lg">Shop Collection</a>
+<a href="about.html" class="btn btn-outline btn-lg">The Brand</a>
+</div>
+</section>
+
+<!-- FEATURED COLLECTIONS -->
+<section style="padding:80px 32px; background:#0d0d0d; border-top:1px solid #1a1a1a;">
+<div class="container">
+<h2 class="section-title">Featured Collections</h2>
+<div class="collections-grid" id="collections-grid"></div>
+</div>
+</section>
+
+<!-- PRODUCTS -->
+<section>
+<div class="container">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:48px;">
+<h2 class="section-title" style="margin-bottom:0;">New Arrivals</h2>
+<a href="shop.html" class="btn btn-ghost btn-sm">View All</a>
+</div>
+<div class="products-grid" id="featured-grid"></div>
+</div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-home">
+<div class="container">
+<div class="about-grid">
+<div>
+<h2 class="section-title">About UNDERWALD</h2>
+<p>UNDERWALD is an underground streetwear brand born from the intersection of street culture and art. We design for those who refuse to follow — the ones who set the tone.</p>
+<p>Every piece is a statement. Every drop is intentional. Limited quantities, unlimited vision.</p>
+<a href="about.html" class="btn btn-outline" style="margin-top:32px;">Read Our Story</a>
+</div>
+<div style="aspect-ratio:1;overflow:hidden;">
+<img src="https://images.unsplash.com/photo-1523398002811-999ca8dec234?w=800&q=80" alt="About UNDERWALD" style="width:100%;height:100%;object-fit:cover;">
+</div>
+</div>
+</div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter">
+<div class="container" style="max-width:600px;">
+<h2 class="section-title" style="margin-bottom:12px;">Stay in the Loop</h2>
+<p style="color:var(--muted);font-size:13px;margin-bottom:32px;text-transform:uppercase;letter-spacing:.1em;">First access to new drops. No spam.</p>
+<form class="newsletter-form" onsubmit="handleNewsletter(event)">
+<input type="email" id="nl-email" placeholder="your@email.com" required>
+<button type="submit" class="btn btn-primary">Subscribe</button>
+</form>
+</div>
+</section>
+
+<!-- CONTACT -->
+<section style="background:var(--bg-card);border-top:1px solid var(--border);">
+<div class="container">
+<h2 class="section-title">Contact Us</h2>
+<div class="contact-grid">
+<div class="contact-info">
+<p>Have questions? We're here to help.</p>
+<div class="contact-detail"><strong>Email</strong>info@underwald.com</div>
+<div class="contact-detail"><strong>Phone</strong>+1 (555) 000-0000</div>
+<div class="contact-detail"><strong>Address</strong>123 Underground Ave, New York, NY 10001</div>
+<div class="contact-detail"><strong>Hours</strong>Mon–Fri, 10am–6pm EST</div>
+</div>
+<form onsubmit="handleContact(event)">
+<div class="form-row">
+<div class="form-group"><label class="form-label">Name</label><input type="text" placeholder="John Doe" required></div>
+<div class="form-group"><label class="form-label">Email</label><input type="email" placeholder="you@example.com" required></div>
+</div>
+<div class="form-group"><label class="form-label">Subject</label><input type="text" placeholder="Order inquiry…"></div>
+<div class="form-group"><label class="form-label">Message</label><textarea rows="5" placeholder="Your message…" required></textarea></div>
+<button type="submit" class="btn btn-primary">Send Message</button>
+</form>
+</div>
+</div>
+</section>
+
+<footer id="footer"></footer>
+<div id="toast"></div>
+
+<script src="js/data.js"></script>
+<script src="js/utils.js"></script>
+<script>
+renderNavbar();
+renderFooter();
+
+// Collections
+const cg = document.getElementById('collections-grid');
+CATEGORIES.forEach(c => {
+cg.innerHTML += `
+<a href="shop.html?cat=${c.slug}" class="collection-card">
+<img src="${c.image}" alt="${c.name}" loading="lazy">
+<div class="overlay">
+<span>${c.name}</span>
+<small>${c.count} Items</small>
+</div>
+</a>`;
+});
+
+// Featured products
+const fg = document.getElementById('featured-grid');
+PRODUCTS.filter(p => p.featured).slice(0, 8).forEach(p => {
+fg.innerHTML += productCardHTML(p);
+});
+
+function handleNewsletter(e) {
+e.preventDefault();
+showToast('You are now subscribed!');
+document.getElementById('nl-email').value = '';
+}
+
+function handleContact(e) {
+e.preventDefault();
+showToast('Message sent! We will be in touch.');
+e.target.reset();
+}
+</script>
+</body>
+</html>

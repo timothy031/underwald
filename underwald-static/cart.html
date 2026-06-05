@@ -1,0 +1,106 @@
+<link rel="stylesheet" href="style.css">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cart — UNDERWALD</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<nav id="navbar"></nav>
+
+<div class="page-header">
+<div class="breadcrumb"><a href="index.html">Home</a> &rsaquo; Cart</div>
+<h1 class="page-title">Your Cart</h1>
+</div>
+
+<section>
+<div class="container">
+<div id="cart-empty" class="empty-state" style="display:none;">
+<p>Your cart is empty.</p>
+<a href="shop.html" class="btn btn-primary">Shop Now</a>
+</div>
+
+<div id="cart-content" class="cart-layout" style="display:none;">
+<!-- Items -->
+<div>
+<div class="cart-header">
+<div>Product</div>
+<div>Price</div>
+<div style="text-align:center;">Qty</div>
+<div>Total</div>
+<div></div>
+</div>
+<div id="cart-items"></div>
+</div>
+
+<!-- Summary -->
+<div class="order-summary-box">
+<h3>Order Summary</h3>
+<div class="summary-row"><span>Subtotal</span><span id="s-subtotal"></span></div>
+<div class="summary-row"><span>Shipping</span><span style="color:var(--primary);font-size:10px;letter-spacing:.1em;text-transform:uppercase;">Calculated at checkout</span></div>
+<div class="summary-total">
+<span>Total</span>
+<span id="s-total"></span>
+</div>
+<a href="checkout.html" class="btn btn-primary btn-full" style="margin-top:24px;display:flex;">Checkout</a>
+<a href="shop.html" class="btn btn-ghost btn-full" style="margin-top:10px;display:flex;">Continue Shopping</a>
+</div>
+</div>
+</div>
+</section>
+
+<footer id="footer"></footer>
+<div id="toast"></div>
+
+<script src="js/data.js"></script>
+<script src="js/utils.js"></script>
+<script>
+renderNavbar();
+renderFooter();
+renderCart();
+
+function renderCart() {
+const cart = getCart();
+const empty = document.getElementById('cart-empty');
+const content = document.getElementById('cart-content');
+
+if (cart.length === 0) {
+empty.style.display = 'block';
+content.style.display = 'none';
+return;
+}
+empty.style.display = 'none';
+content.style.display = 'grid';
+
+const subtotal = getCartTotal();
+document.getElementById('s-subtotal').textContent = fmt(subtotal);
+document.getElementById('s-total').textContent = fmt(subtotal);
+
+const itemsEl = document.getElementById('cart-items');
+itemsEl.innerHTML = cart.map(item => `
+<div class="cart-item">
+<div class="cart-item-info">
+<img class="cart-item-img" src="${item.image}" alt="${item.name}" onclick="location.href='product.html?id=${item.productId}'" style="cursor:pointer;">
+<div>
+<div class="cart-item-name">${item.name}</div>
+<div class="cart-item-size">Size: ${item.size}</div>
+</div>
+</div>
+<div class="cart-item-price">${fmt(item.price)}</div>
+<div class="cart-item-qty">${item.qty}</div>
+<div class="cart-item-total">${fmt(item.price * item.qty)}</div>
+<button class="cart-remove" onclick="handleRemove('${item.key}', '${item.name}')" title="Remove">&times;</button>
+</div>`).join('');
+}
+
+function handleRemove(key, name) {
+removeFromCart(key);
+showToast(`${name} removed`);
+renderCart();
+}
+</script>
+</body>
+</html>

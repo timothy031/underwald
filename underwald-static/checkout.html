@@ -1,0 +1,247 @@
+<link rel="stylesheet" href="style.css">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout — UNDERWALD</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<nav id="navbar"></nav>
+
+<div class="page-header">
+<div class="breadcrumb"><a href="index.html">Home</a> &rsaquo; <a href="cart.html">Cart</a> &rsaquo; Checkout</div>
+<h1 class="page-title">Checkout</h1>
+</div>
+
+<section>
+<div class="container">
+
+<!-- STEP INDICATORS -->
+<div class="checkout-steps">
+<div class="step-item done" id="step-cart">
+<div class="step-icon">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+</div>
+<div class="step-name">Cart</div>
+</div>
+<div class="step-item active" id="step-shipping">
+<div class="step-icon">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"/></svg>
+</div>
+<div class="step-name">Shipping</div>
+</div>
+<div class="step-item" id="step-payment">
+<div class="step-icon">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"/></svg>
+</div>
+<div class="step-name">Payment</div>
+</div>
+<div class="step-item" id="step-result">
+<div class="step-icon">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"/></svg>
+</div>
+<div class="step-name">Result</div>
+</div>
+</div>
+
+<!-- SHIPPING STEP -->
+<div id="view-shipping" class="checkout-layout">
+<div>
+<div class="checkout-section">
+<div class="tab-bar">
+<button class="tab-btn" id="tab-choose" onclick="setTab('choose')">Choose Address</button>
+<button class="tab-btn active" id="tab-new" onclick="setTab('new')">Add New Address</button>
+</div>
+
+<div id="tab-choose-content" style="display:none;padding:48px 0;text-align:center;color:var(--muted);font-size:13px;text-transform:uppercase;letter-spacing:.1em;">
+No saved addresses. Add a new one.
+</div>
+
+<div id="tab-new-content">
+<div class="checkout-form">
+<div class="form-group"><label class="form-label">Name Surname</label><input type="text" id="sh-name" placeholder="John Doe"></div>
+<div class="form-group"><label class="form-label">City</label><input type="text" id="sh-city" placeholder="New York"></div>
+<div class="form-group"><label class="form-label">Phone</label><input type="text" id="sh-phone" placeholder="+1 555 000 0000"></div>
+<div class="form-group"><label class="form-label">State</label><input type="text" id="sh-state" placeholder="NY"></div>
+<div class="form-group"><label class="form-label">E-Mail</label><input type="email" id="sh-email" placeholder="you@example.com"></div>
+<div class="form-group span2"><label class="form-label">Address</label><textarea id="sh-address" rows="3" placeholder="123 Street Ave, Apt 4B"></textarea></div>
+<div class="form-group"><label class="form-label">Address Title</label><input type="text" id="sh-title" placeholder="Home / Work"></div>
+<div class="form-group"><label class="form-label">ZIP Code</label><input type="text" id="sh-zip" placeholder="10001"></div>
+</div>
+</div>
+</div>
+<div class="checkout-actions">
+<button class="btn btn-primary" onclick="goToPayment()">Continue to Payment ›</button>
+<a href="cart.html" class="btn btn-ghost">Back to Cart</a>
+</div>
+</div>
+<div>
+<div class="order-summary-box" id="summary-box"></div>
+<div class="mini-cart-items" id="mini-cart"></div>
+</div>
+</div>
+
+<!-- PAYMENT STEP -->
+<div id="view-payment" class="checkout-layout" style="display:none;">
+<div>
+<div class="checkout-section">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="var(--primary)" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"/></svg>
+<span style="font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;">Card Details</span>
+</div>
+<div style="display:flex;flex-direction:column;gap:20px;">
+<div class="form-group"><label class="form-label">Name on Card</label><input type="text" id="pay-name" placeholder="John Doe"></div>
+<div class="form-group"><label class="form-label">Card Number</label><input type="text" id="pay-number" placeholder="0000 0000 0000 0000" maxlength="19" oninput="formatCardNumber(this)"></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+<div class="form-group"><label class="form-label">Expiry</label><input type="text" id="pay-expiry" placeholder="MM/YY" maxlength="5" oninput="formatExpiry(this)"></div>
+<div class="form-group"><label class="form-label">CVV</label><input type="text" id="pay-cvv" placeholder="000" maxlength="4" oninput="this.value=this.value.replace(/\D/g,'')"></div>
+</div>
+<p style="font-size:11px;color:var(--muted);">Your payment information is encrypted and secure. We do not store card details.</p>
+</div>
+</div>
+<div class="checkout-actions">
+<button class="btn btn-primary" onclick="placeOrder()">Place Order ›</button>
+<button class="btn btn-ghost" onclick="goToShipping()">Back to Shipping</button>
+</div>
+</div>
+<div>
+<div class="order-summary-box" id="summary-box-2"></div>
+<div class="mini-cart-items" id="mini-cart-2"></div>
+</div>
+</div>
+
+<!-- RESULT STEP -->
+<div id="view-result" style="display:none;">
+<div class="result-wrap">
+<div class="result-icon">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+</div>
+<h2 class="result-title">Order Confirmed</h2>
+<p class="result-order" id="order-number"></p>
+<p class="result-msg">Your order has been placed successfully. You will receive a confirmation email shortly. Thank you for shopping with UNDERWALD.</p>
+<div class="result-actions">
+<a href="shop.html" class="btn btn-primary btn-lg">Continue Shopping</a>
+<a href="index.html" class="btn btn-ghost btn-lg">Back to Home</a>
+</div>
+</div>
+</div>
+
+</div>
+</section>
+
+<footer id="footer"></footer>
+<div id="toast"></div>
+
+<script src="js/data.js"></script>
+<script src="js/utils.js"></script>
+<script>
+renderNavbar();
+renderFooter();
+
+const TAX = 0.08;
+const SHIP = 10;
+
+function summaryHTML(id) {
+const cart = getCart();
+const subtotal = getCartTotal();
+const tax = subtotal * TAX;
+const total = subtotal + tax + SHIP;
+return `
+<h3>Order Summary</h3>
+<div class="summary-row"><span>Products</span><span>${fmt(subtotal)}</span></div>
+<div class="summary-row"><span>Tax (8%)</span><span>${fmt(tax)}</span></div>
+<div class="summary-row"><span>Shipping</span><span>${fmt(SHIP)}</span></div>
+<div class="summary-total"><span>Total</span><span>${fmt(total)}</span></div>`;
+}
+
+function miniCartHTML() {
+const cart = getCart();
+if (!cart.length) return '';
+return `<h4>Items (${getCartCount()})</h4>` +
+cart.map(i => `
+<div class="mini-cart-item">
+<img src="${i.image}" alt="${i.name}">
+<div>
+<div class="mini-cart-item-name">${i.name}</div>
+<div class="mini-cart-item-sub">Size: ${i.size} · Qty: ${i.qty}</div>
+<div class="mini-cart-item-price">${fmt(i.price * i.qty)}</div>
+</div>
+</div>`).join('');
+}
+
+function initSummaries() {
+document.getElementById('summary-box').innerHTML = summaryHTML();
+document.getElementById('mini-cart').innerHTML = miniCartHTML();
+document.getElementById('summary-box-2').innerHTML = summaryHTML();
+document.getElementById('mini-cart-2').innerHTML = miniCartHTML();
+}
+
+initSummaries();
+
+function setTab(t) {
+document.getElementById('tab-choose').classList.toggle('active', t === 'choose');
+document.getElementById('tab-new').classList.toggle('active', t === 'new');
+document.getElementById('tab-choose-content').style.display = t === 'choose' ? 'block' : 'none';
+document.getElementById('tab-new-content').style.display = t === 'new' ? 'block' : 'none';
+}
+
+function setStep(s) {
+['cart','shipping','payment','result'].forEach((name, i) => {
+const el = document.getElementById('step-' + name);
+el.className = 'step-item';
+if (name === s) el.classList.add('active');
+else if (['cart','shipping','payment','result'].indexOf(name) < ['cart','shipping','payment','result'].indexOf(s)) el.classList.add('done');
+});
+document.getElementById('view-shipping').style.display = s === 'shipping' ? 'grid' : 'none';
+document.getElementById('view-payment').style.display = s === 'payment' ? 'grid' : 'none';
+document.getElementById('view-result').style.display = s === 'result' ? 'block' : 'none';
+}
+
+function goToPayment() {
+const name = document.getElementById('sh-name').value.trim();
+const city = document.getElementById('sh-city').value.trim();
+const email = document.getElementById('sh-email').value.trim();
+const address = document.getElementById('sh-address').value.trim();
+const zip = document.getElementById('sh-zip').value.trim();
+if (!name || !city || !email || !address || !zip) {
+showToast('Please fill in all required fields');
+return;
+}
+setStep('payment');
+window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function goToShipping() {
+setStep('shipping');
+window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function placeOrder() {
+const pname = document.getElementById('pay-name').value.trim();
+const pnum = document.getElementById('pay-number').value.replace(/\s/g,'');
+const exp = document.getElementById('pay-expiry').value.trim();
+const cvv = document.getElementById('pay-cvv').value.trim();
+if (!pname || pnum.length < 16 || exp.length < 5 || cvv.length < 3) {
+showToast('Please fill in all payment fields');
+return;
+}
+const orderNo = 'UW-' + Math.floor(100000 + Math.random() * 900000);
+document.getElementById('order-number').textContent = 'Order #' + orderNo;
+saveCart([]);
+setStep('result');
+window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function formatCardNumber(el) {
+el.value = el.value.replace(/\D/g,'').slice(0,16).replace(/(.{4})/g,'$1 ').trim();
+}
+
+function formatExpiry(el) {
+el.value = el.value.replace(/\D/g,'').slice(0,4).replace(/^(\d{2})(\d)/, '$1/$2');
+}
+</script>
+</body>
+</html>

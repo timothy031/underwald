@@ -1,0 +1,146 @@
+<link rel="stylesheet" href="style.css">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product — UNDERWALD</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<nav id="navbar"></nav>
+
+<div id="product-wrap" style="display:none;">
+<div class="page-header">
+<div class="breadcrumb"><a href="index.html">Home</a> &rsaquo; <a href="shop.html">Shop</a> &rsaquo; <span id="bc-name"></span></div>
+</div>
+<section>
+<div class="container">
+<div class="product-detail-grid">
+<div class="product-detail-img">
+<img id="pd-image" src="" alt="">
+</div>
+<div class="product-detail-info">
+<div id="pd-badge" style="margin-bottom:12px;"></div>
+<h1 class="product-detail-name" id="pd-name"></h1>
+<div class="product-detail-price">
+<span id="pd-price"></span>
+<span id="pd-original" class="original" style="display:none;"></span>
+</div>
+<p class="product-detail-desc" id="pd-desc"></p>
+
+<div class="size-label">Select Size</div>
+<div class="sizes-wrap" id="pd-sizes"></div>
+
+<div class="qty-wrap">
+<span class="qty-label">Quantity</span>
+<div class="qty-ctrl">
+<button onclick="changeQty(-1)">−</button>
+<span id="qty-display">1</span>
+<button onclick="changeQty(1)">+</button>
+</div>
+</div>
+
+<div class="detail-actions">
+<button class="btn btn-primary btn-lg" id="add-btn" onclick="handleAddToCart()">Add to Cart</button>
+<a href="shop.html" class="btn btn-ghost">Continue Shopping</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- RELATED -->
+<section style="border-top:1px solid var(--border);">
+<div class="container">
+<h2 class="section-title">You May Also Like</h2>
+<div class="products-grid" id="related-grid"></div>
+</div>
+</section>
+</div>
+
+<div id="not-found" style="display:none;text-align:center;padding:120px 32px;">
+<h2 style="font-family:var(--font-display);text-transform:uppercase;margin-bottom:24px;">Product Not Found</h2>
+<a href="shop.html" class="btn btn-primary">Back to Shop</a>
+</div>
+
+<footer id="footer"></footer>
+<div id="toast"></div>
+
+<script src="js/data.js"></script>
+<script src="js/utils.js"></script>
+<script>
+renderNavbar();
+renderFooter();
+
+const id = parseInt(new URLSearchParams(location.search).get('id'));
+const product = PRODUCTS.find(p => p.id === id);
+
+let selectedSize = null;
+let qty = 1;
+
+if (!product) {
+document.getElementById('not-found').style.display = 'block';
+} else {
+document.title = `${product.name} — UNDERWALD`;
+document.getElementById('product-wrap').style.display = 'block';
+document.getElementById('bc-name').textContent = product.name;
+document.getElementById('pd-image').src = product.image;
+document.getElementById('pd-image').alt = product.name;
+document.getElementById('pd-name').textContent = product.name;
+document.getElementById('pd-desc').textContent = product.desc;
+document.getElementById('pd-price').textContent = fmt(product.price);
+if (product.badge === 'SALE' && product.original) {
+document.getElementById('pd-price').classList.add('sale');
+const orig = document.getElementById('pd-original');
+orig.style.display = 'inline';
+orig.textContent = fmt(product.original);
+}
+if (product.badge) {
+document.getElementById('pd-badge').innerHTML =
+`<span class="product-badge ${product.badge.toLowerCase()}">${product.badge}</span>`;
+}
+if (!product.inStock) {
+document.getElementById('add-btn').disabled = true;
+document.getElementById('add-btn').textContent = 'Sold Out';
+}
+
+// Sizes
+const sw = document.getElementById('pd-sizes');
+product.sizes.forEach(s => {
+const btn = document.createElement('button');
+btn.className = 'size-btn';
+btn.textContent = s;
+btn.onclick = () => {
+selectedSize = s;
+sw.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+btn.classList.add('active');
+};
+sw.appendChild(btn);
+});
+// Auto-select first
+if (product.sizes.length) {
+selectedSize = product.sizes[0];
+sw.querySelector('.size-btn').classList.add('active');
+}
+
+// Related
+const related = PRODUCTS.filter(p => p.category === product.category && p.id !== product.id).slice(0, 4);
+const rg = document.getElementById('related-grid');
+related.forEach(p => { rg.innerHTML += productCardHTML(p); });
+}
+
+function changeQty(delta) {
+qty = Math.max(1, qty + delta);
+document.getElementById('qty-display').textContent = qty;
+}
+
+function handleAddToCart() {
+if (!product || !product.inStock) return;
+if (!selectedSize) { showToast('Please select a size'); return; }
+addToCart(product, selectedSize, qty);
+}
+</script>
+</body>
+</html>
