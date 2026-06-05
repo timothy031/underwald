@@ -140,7 +140,7 @@ opacity: .08;
 
 .hero-title {
 font-family: var(--font-display);
-font-size: clamp(60px, 15vw, 180px);
+font-size: clamp(60px, 15vw, 100px);
 font-weight: 700;
 letter-spacing: -.02em;
 line-height: 1;
