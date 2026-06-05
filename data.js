@@ -1,0 +1,32 @@
+
+const CATEGORIES = [
+{ id: 1, name: "T-Shirts", slug: "tees", image: "https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=400&q=80", count: 6 },
+{ id: 2, name: "Hoodies", slug: "hoodies", image: "https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=400&q=80", count: 3 },
+{ id: 3, name: "Pants", slug: "pants", image: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=400&q=80", count: 3 },
+{ id: 4, name: "Accessories", slug: "accessories", image: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=400&q=80", count: 4 },
+{ id: 5, name: "Jackets", slug: "jackets", image: "https://images.unsplash.com/photo-1551537482-f2075a1d41f2?w=400&q=80", count: 2 },
+{ id: 6, name: "Footwear", slug: "footwear", image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80", count: 2 },
+];
+
+const PRODUCTS = [
+{ id:1, name:"Core Logo Tee", price:45, original:null, category:"tees", image:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&q=80", desc:"Essential heavyweight cotton tee with embroidered UNDERWALD logo.", inStock:true, featured:true, sizes:["XS","S","M","L","XL","XXL"], badge:"NEW" },
+{ id:2, name:"Washed Black Tee", price:38, original:null, category:"tees", image:"https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=500&q=80", desc:"Acid-washed oversize tee in jet black.", inStock:true, featured:false, sizes:["S","M","L","XL"], badge:null },
+{ id:3, name:"Arch Script Tee", price:42, original:58, category:"tees", image:"https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=500&q=80", desc:"Screen-printed arch script on premium cotton.", inStock:true, featured:false, sizes:["XS","S","M","L","XL"], badge:"SALE" },
+{ id:4, name:"Ghost Graphic Tee", price:48, original:null, category:"tees", image:"https://images.unsplash.com/photo-1562157873-818bc0726f68?w=500&q=80", desc:"Photographic ghost print on heavyweight tee.", inStock:true, featured:true, sizes:["S","M","L","XL","XXL"], badge:null },
+{ id:5, name:"Void Long Tee", price:52, original:null, category:"tees", image:"https://images.unsplash.com/photo-1618354691438-25bc04584c23?w=500&q=80", desc:"Extended length longline tee in matte black.", inStock:false, featured:false, sizes:["M","L","XL"], badge:null },
+{ id:6, name:"Strike Tee", price:35, original:50, category:"tees", image:"https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=500&q=80", desc:"Bold strike-through print on soft cotton.", inStock:true, featured:false, sizes:["S","M","L","XL"], badge:"SALE" },
+{ id:7, name:"Shadow Hoodie", price:95, original:null, category:"hoodies", image:"https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=500&q=80", desc:"Heavyweight brushed fleece pullover hoodie.", inStock:true, featured:true, sizes:["S","M","L","XL","XXL"], badge:"NEW" },
+{ id:8, name:"Cargo Zip Hoodie", price:110, original:140, category:"hoodies", image:"https://images.unsplash.com/photo-1578768079052-aa76e52ff62e?w=500&q=80", desc:"Full-zip hoodie with cargo pockets.", inStock:true, featured:false, sizes:["M","L","XL","XXL"], badge:"SALE" },
+{ id:9, name:"Oversized Fleece", price:88, original:null, category:"hoodies", image:"https://images.unsplash.com/photo-1620799139507-2a76f79a2729?w=500&q=80", desc:"Ultra-oversized silhouette, dropped shoulders.", inStock:true, featured:false, sizes:["XS","S","M","L","XL"], badge:null },
+{ id:10, name:"Utility Cargo Pants", price:120, original:null, category:"pants", image:"https://images.unsplash.com/photo-1542272604-787c3835535d?w=500&q=80", desc:"Multi-pocket utility cargo in heavy ripstop.", inStock:true, featured:true, sizes:["28","30","32","34","36"], badge:"NEW" },
+{ id:11, name:"Track Pants", price:85, original:105, category:"pants", image:"https://images.unsplash.com/photo-1594938298603-c8148c4b4442?w=500&q=80", desc:"Slim-cut tech track pants with zip pockets.", inStock:true, featured:false, sizes:["S","M","L","XL"], badge:"SALE" },
+{ id:12, name:"Baggy Denim", price:130, original:null, category:"pants", image:"https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=500&q=80", desc:"Extra-wide leg washed denim jeans.", inStock:true, featured:false, sizes:["28","30","32","34"], badge:null },
+{ id:13, name:"UNDERWALD Cap", price:35, original:null, category:"accessories", image:"https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=500&q=80", desc:"Structured 6-panel cap with embroidered logo.", inStock:true, featured:true, sizes:["ONE SIZE"], badge:null },
+{ id:14, name:"Chain Necklace", price:65, original:null, category:"accessories", image:"https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=500&q=80", desc:"Heavy stainless steel chain, 24 inch.", inStock:true, featured:false, sizes:["ONE SIZE"], badge:"NEW" },
+{ id:15, name:"Beanie", price:28, original:38, category:"accessories", image:"https://images.unsplash.com/photo-1510598969022-c4a6f9b91f57?w=500&q=80", desc:"Ribbed knit beanie with woven patch.", inStock:true, featured:false, sizes:["ONE SIZE"], badge:"SALE" },
+{ id:16, name:"Shield Sunglasses", price:55, original:null, category:"accessories", image:"https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=500&q=80", desc:"Shield-style wraparound sunglasses.", inStock:true, featured:false, sizes:["ONE SIZE"], badge:null },
+{ id:17, name:"Tech Shell Jacket", price:220, original:null, category:"jackets", image:"https://images.unsplash.com/photo-1551537482-f2075a1d41f2?w=500&q=80", desc:"Waterproof shell jacket with taped seams.", inStock:true, featured:true, sizes:["S","M","L","XL"], badge:"NEW" },
+{ id:18, name:"Varsity Bomber", price:195, original:240, category:"jackets", image:"https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&q=80", desc:"Classic varsity bomber with chenille patch.", inStock:true, featured:false, sizes:["S","M","L","XL","XXL"], badge:"SALE" },
+{ id:19, name:"Low Trainer", price:145, original:null, category:"footwear", image:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&q=80", desc:"Minimalist leather low-top trainer.", inStock:true, featured:true, sizes:["US7","US8","US9","US10","US11","US12"], badge:null },
+{ id:20, name:"High Boot", price:185, original:null, category:"footwear", image:"https://images.unsplash.com/photo-1608256246200-53e635b5b65f?w=500&q=80", desc:"Combat-inspired high boot in matte black.", inStock:true, featured:false, sizes:["US7","US8","US9","US10","US11"], badge:"NEW" },
+];

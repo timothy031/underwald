@@ -1,0 +1,86 @@
+<link rel="stylesheet" href="style.css">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop — UNDERWALD</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<nav id="navbar"></nav>
+
+<div class="page-header">
+<div class="breadcrumb"><a href="index.html">Home</a> &rsaquo; Shop</div>
+<h1 class="page-title">Shop</h1>
+</div>
+
+<section>
+<div class="container">
+<div class="filter-bar" id="filter-bar"></div>
+<div class="products-grid" id="products-grid"></div>
+<div id="empty-state" style="display:none;" class="empty-state">
+<p>No products found in this category.</p>
+<button class="btn btn-primary" onclick="setFilter('all')">View All</button>
+</div>
+</div>
+</section>
+
+<footer id="footer"></footer>
+<div id="toast"></div>
+
+<script src="js/data.js"></script>
+<script src="js/utils.js"></script>
+<script>
+renderNavbar();
+renderFooter();
+
+const params = new URLSearchParams(location.search);
+let activeFilter = params.get('cat') || 'all';
+const isSale = params.get('sale') === '1';
+if (isSale) activeFilter = 'sale';
+
+const filters = [
+{ label: 'All', slug: 'all' },
+...CATEGORIES.map(c => ({ label: c.name, slug: c.slug })),
+{ label: 'Sale', slug: 'sale' },
+];
+
+const bar = document.getElementById('filter-bar');
+function renderFilters() {
+bar.innerHTML = filters.map(f => `
+<button class="filter-btn ${activeFilter === f.slug ? 'active' : ''}" onclick="setFilter('${f.slug}')">
+${f.label}
+</button>`).join('');
+}
+
+function setFilter(slug) {
+activeFilter = slug;
+renderFilters();
+renderProducts();
+const url = slug === 'all' ? 'shop.html' : slug === 'sale' ? 'shop.html?sale=1' : `shop.html?cat=${slug}`;
+history.replaceState(null, '', url);
+}
+
+function renderProducts() {
+let list = PRODUCTS;
+if (activeFilter === 'sale') list = PRODUCTS.filter(p => p.badge === 'SALE');
+else if (activeFilter !== 'all') list = PRODUCTS.filter(p => p.category === activeFilter);
+
+const grid = document.getElementById('products-grid');
+const empty = document.getElementById('empty-state');
+if (list.length === 0) {
+grid.innerHTML = '';
+empty.style.display = 'block';
+} else {
+empty.style.display = 'none';
+grid.innerHTML = list.map(productCardHTML).join('');
+}
+}
+
+renderFilters();
+renderProducts();
+</script>
+</body>
+</html>
